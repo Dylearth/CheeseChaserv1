@@ -6,13 +6,41 @@
     android:layout_height="match_parent"
     tools:context="com.example.dylan.cheesechaserv1.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <Button
+        android:id="@+id/buttonNewGame"
+        android:layout_width="291dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginTop="226dp"
+        android:background="@color/cyan"
+        android:text="Nouvelle partie"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonContinuer"
+        android:layout_width="291dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginTop="306dp"
+        android:background="@color/cyan"
+        android:text="CONTINUER"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="383dp"
+        android:layout_height="560dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
