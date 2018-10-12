@@ -1,5 +1,4 @@
 package com.example.dylan.cheesechaserv1;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,7 +16,6 @@ public class Card {
         this.cote = cote;
         this.picture = picture;
     }
-    //
 
     public int getId() {
         return id;

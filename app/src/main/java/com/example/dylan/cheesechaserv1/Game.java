@@ -1,4 +1,5 @@
 package com.example.dylan.cheesechaserv1;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,19 +22,21 @@ import java.util.Map;
 
 public class Game extends View implements View.OnTouchListener {
 
-    private Board context;
+    private Board boardContext;
 
     private int picturesID[] = {R.drawable.mouse,R.drawable.cat,R.drawable.cheese,R.drawable.mousetrap};
 
     private HashMap<Map.Entry<Integer,Integer>,Card> cardsOnBoard;
+
+    private LinkedList<Card> deck = new LinkedList<Card>();
+    private int points;
+    private int traps;
 
     private int cardSize;
     private int lastActionMoveX;
     private int lastActionMoveY;
     private int offsetX;
     private int offsetY;
-
-    //test
 
 
     public Game(Context context,AttributeSet attrs) {
@@ -46,9 +49,8 @@ public class Game extends View implements View.OnTouchListener {
         this.offsetX = 0;
         this.offsetY = 0;
 
-        this.context.setTraps(0);
-        this.context.setPoints(0);
-        this.context.setDeck(new LinkedList<Card>());
+        this.points = 0;
+        this.traps = 0;
 
         this.fillDeck();
         setOnTouchListener(this);
@@ -60,6 +62,8 @@ public class Game extends View implements View.OnTouchListener {
     @Override
     protected void onDraw(Canvas canvas) {
 
+        this.boardContext.score.setText(String.valueOf(this.points));
+        this.boardContext.nbCartes.setText(String.valueOf(this.deck.size()));
 
         for (Map.Entry<Integer,Integer> cardPosition : this.cardsOnBoard.keySet()) {
             //Definition des param de style avec un paint
@@ -83,6 +87,7 @@ public class Game extends View implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
         int x = (int) event.getX();
         int y = (int) event.getY();
 
@@ -261,7 +266,7 @@ public class Game extends View implements View.OnTouchListener {
 
             c.setPicture(deadMouse);
         }else{
-            context.setPoints(context.getPoints()+point);
+            this.points+=point;
         }
     }
 
@@ -296,7 +301,7 @@ public class Game extends View implements View.OnTouchListener {
 
             c.setPicture(deadTrap);
         }else{
-            context.setTraps(context.getTraps()+1);
+            this.traps++;
         }
     }
 
@@ -323,7 +328,7 @@ public class Game extends View implements View.OnTouchListener {
         }
 
         if(mouseNeighboor == 4){
-            context.setPoints(context.getPoints()+10);
+            this.points += 10;
         }
     }
 
@@ -353,8 +358,8 @@ public class Game extends View implements View.OnTouchListener {
      * @param y Axe y
      */
     private void placeTileOnBoard(int x, int y){
-        Card cardPicked = context.getDeck().removeLast();
-        if(context.getDeck().size() == 0){
+        Card cardPicked = this.deck.removeLast();
+        if(this.deck.size() == 0){
 
         }
         Map.Entry<Integer,Integer> cardPosition;
@@ -391,19 +396,6 @@ public class Game extends View implements View.OnTouchListener {
      * Un deck contient 40 cartes
      */
     private void fillDeck(){
-/*        for (int i = 0; i < 20; i++) {
-            Bitmap bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.mouse);
-            Card c = new Card(R.drawable.mouse,this.cardSize,bitmap);
-            this.deck.add(c);
-        }
-        for (int i = 0; i < 20; i++){
-            int typeCardPicked = (int) (Math.random() * this.picturesID.length -1);
-            int pictureRan = this.picturesID[typeCardPicked+1];
-            Bitmap bitmap=BitmapFactory.decodeResource(getResources(),pictureRan);
-            Card c = new Card(pictureRan,this.cardSize,bitmap);
-            this.deck.add(c);
-        }*/
-
         int mouse = 0;
         int trap = 0;
         int cheese = 0;
@@ -452,18 +444,17 @@ public class Game extends View implements View.OnTouchListener {
             if (toDraw){
                 Bitmap bitmap=BitmapFactory.decodeResource(getResources(),pictureRan);
                 Card c = new Card(pictureRan,this.cardSize,bitmap);
-                context.getDeck().add(c);
+                this.deck.add(c);
             }
         }
 
 
-        Collections.shuffle(context.getDeck());
+        Collections.shuffle(this.deck);
 
     }
 
 
-    public void setContext(Context context) {
-        this.context = (Board) context;
+    public void setContext(Activity context) {
+        this.boardContext = (Board)context;
     }
 }
-
