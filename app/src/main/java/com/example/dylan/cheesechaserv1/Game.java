@@ -99,11 +99,6 @@ public class Game extends View implements View.OnTouchListener {
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN :
-                //Par la suite il faudra enregistrer le dernier decalage
-                //fait par l'utilisateur (ACTION_MOVE) et l'ajouter a la
-                //variable titleSize pour gerer l'ajout de Tuile en
-                // post-decalage du board
-
 
                 //Place un carres a la position appuyés dans un quadrillage
                 // dont la taille des carreaux depend de la taille des tuiles
